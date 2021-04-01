@@ -60,12 +60,13 @@ public class Menu {
 
         listaProdutos.add(produto);
 
-        System.out.println(listaProdutos);
+        System.out.println("Produto cadastrado com sucesso\n");
     }
 
     // OPÇÃO 2 --- ALTERAÇÃO DE PRODUTO ---
 
     public static void menuAlteraProduto(Scanner input, ArrayList<Produto> listaProdutos) throws ACMEException {
+
         System.out.println("Informe o ID do produto que deseja alterar.");
 
         int idBusca = input.nextInt();
@@ -82,24 +83,27 @@ public class Menu {
         if (escolha == 1 || escolha == 2 || escolha == 3) {
 
             if (escolha == 1) {
+
                 System.out.println("Informe o novo nome do produto: ");
     
                 String novoNome = input.next();
     
                 alteraId.setNome(novoNome);
 
-                System.out.println("Nome alterado com sucesso.");
+                System.out.println("Nome alterado com sucesso.\n");
             }
             else if (escolha == 2) {
+
                 System.out.println("Informe o novo tipo do produto: ");
     
                 String novoTipo = input.next();
     
                 alteraId.setTipo(novoTipo);
 
-                System.out.println("Tipo alterado com sucesso.");
+                System.out.println("Tipo alterado com sucesso.\n");
             }
             else if (escolha == 3) {
+
                 System.out.println("Informe o novo nome do produto: ");
     
                 String novoNome = input.next();
@@ -114,7 +118,7 @@ public class Menu {
     
                 alteraId.setTipo(novoTipo);
 
-                System.out.println("Tipo alterado com sucesso.");
+                System.out.println("Tipo alterado com sucesso.\n");
             }
         }
         else {
@@ -125,6 +129,7 @@ public class Menu {
     // OPÇÃO 3 --- EXCLUSÃO DE PRODUTO ---
     
     public static void menuRemoveProduto(Scanner input, ArrayList<Produto> listaProdutos) {
+        
         System.out.println("Informe o ID do produto que deseja excluir.");
 
         int idBusca = input.nextInt();
@@ -134,7 +139,7 @@ public class Menu {
     
             listaProdutos.remove(removeId);
     
-            System.out.println("Produto excluído com sucesso.");
+            System.out.println("Produto excluído com sucesso.\n");
     
             System.out.println(listaProdutos);
         } 
@@ -149,7 +154,9 @@ public class Menu {
     // OPÇÃO 4--- CADASTRO DE COTAÇÃO ---
 
     public static void menuCadastrarCotacao(Scanner input, ArrayList<Produto> listaProdutos) {
+
         System.out.println("Informe o ID do produto que deseja cadastrar a cotação.");
+
         int idBusca = input.nextInt();
 
         try {
@@ -170,6 +177,8 @@ public class Menu {
             cotacao.setPrecoTelefone(precoTelefone);
             
             buscaID.setCotacao(cotacao);
+
+            System.out.println("Cotação cadastrada com sucesso.\n");
         } 
         catch (NoSuchElementException exception) {
             System.out.println("Entrada inválida.");

@@ -107,6 +107,7 @@ public class ACME {
 }
 
     public static void consultarProduto(Scanner input, ArrayList<Produto> listaProdutos) throws InputMismatchException {
+
         System.out.println("Deseja pesquisar por:");
         System.out.println("1 - Nome do Produto");
         System.out.println("2 - ID do Produto");
@@ -124,21 +125,20 @@ public class ACME {
             else {
                 System.out.println(porNome(nomeBusca));
             }
-
-            
         }
+        
         else if (escolha == 2) {
             System.out.println("Informe o ID do produto: ");
 
             int idBusca = input.nextInt();
 
-                try {
-                    System.out.println(porID(idBusca));
-                } 
-                
-                catch (NoSuchElementException exception) {
-                    System.out.println("Não existe produto com este ID.");
-                }
+            try {
+                System.out.println(porID(idBusca));
+            } 
+            
+            catch (NoSuchElementException exception) {
+                System.out.println("Não existe produto com este ID.");
+            }
         }
 
     }
@@ -171,5 +171,4 @@ public class ACME {
 
         return listaBuscaID;
     }
-
 }
