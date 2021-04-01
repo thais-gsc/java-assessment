@@ -1,12 +1,14 @@
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.InputMismatchException;
+import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 import Produtos.Cotacao;
 import Produtos.Produto;
 
 public class Menu {
-    public static int menuObterOpcao(Scanner input) {
+    public static int menuObterOpcao(Scanner input) throws Exception {
 
         boolean valido = false;
         int opcao = 7;
@@ -57,11 +59,13 @@ public class Menu {
         produto.setId(listaProdutos.size() + 1) ;
 
         listaProdutos.add(produto);
+
+        System.out.println(listaProdutos);
     }
 
     // OPÇÃO 2 --- ALTERAÇÃO DE PRODUTO ---
 
-    public static void menuAlteraProduto(Scanner input, ArrayList<Produto> listaProdutos) {
+    public static void menuAlteraProduto(Scanner input, ArrayList<Produto> listaProdutos) throws ACMEException {
         System.out.println("Informe o ID do produto que deseja alterar.");
 
         int idBusca = input.nextInt();
@@ -75,32 +79,46 @@ public class Menu {
 
         int escolha = input.nextInt();
 
-        if (escolha == 1) {
-            System.out.println("Informe o novo nome do produto: ");
+        if (escolha == 1 || escolha == 2 || escolha == 3) {
 
-            String novoNome = input.nextLine();
+            if (escolha == 1) {
+                System.out.println("Informe o novo nome do produto: ");
+    
+                String novoNome = input.next();
+    
+                alteraId.setNome(novoNome);
 
-            alteraId.setNome(novoNome);
+                System.out.println("Nome alterado com sucesso.");
+            }
+            else if (escolha == 2) {
+                System.out.println("Informe o novo tipo do produto: ");
+    
+                String novoTipo = input.next();
+    
+                alteraId.setTipo(novoTipo);
+
+                System.out.println("Tipo alterado com sucesso.");
+            }
+            else if (escolha == 3) {
+                System.out.println("Informe o novo nome do produto: ");
+    
+                String novoNome = input.next();
+    
+                alteraId.setNome(novoNome);
+
+                System.out.println("Nome alterado com sucesso.\n");
+                
+                System.out.println("Informe o novo tipo do produto: ");
+    
+                String novoTipo = input.next();
+    
+                alteraId.setTipo(novoTipo);
+
+                System.out.println("Tipo alterado com sucesso.");
+            }
         }
-        else if (escolha == 2) {
-            System.out.println("Informe o novo tipo do produto: ");
-
-            String novoTipo = input.nextLine();
-
-            alteraId.setTipo(novoTipo);
-        }
-        else if (escolha == 3) {
-            System.out.println("Informe o novo nome do produto: ");
-
-            String novoNome = input.nextLine();
-
-            alteraId.setNome(novoNome);
-            
-            System.out.println("Informe o novo tipo do produto: ");
-
-            String novoTipo = input.nextLine();
-
-            alteraId.setTipo(novoTipo);
+        else {
+            throw new ACMEException();
         }
     }
 
@@ -111,13 +129,21 @@ public class Menu {
 
         int idBusca = input.nextInt();
 
-        Produto removeId =  listaProdutos.stream().filter(idPdt ->idPdt.getId() == idBusca).findAny().get();
-
-        listaProdutos.remove(removeId);
-
-        System.out.println("Produto excluído com sucesso.");
-
-        System.out.println(listaProdutos);
+        try {
+            Produto removeId =  listaProdutos.stream().filter(idPdt ->idPdt.getId() == idBusca).findAny().get();
+    
+            listaProdutos.remove(removeId);
+    
+            System.out.println("Produto excluído com sucesso.");
+    
+            System.out.println(listaProdutos);
+        } 
+        catch (InputMismatchException exception) {
+            System.out.println("Entrada inválida");
+        }
+        catch (NoSuchElementException exception) {
+            System.out.println("Não existe produto com este ID");
+        }
     }
 
     // OPÇÃO 4--- CADASTRO DE COTAÇÃO ---
@@ -126,22 +152,27 @@ public class Menu {
         System.out.println("Informe o ID do produto que deseja cadastrar a cotação.");
         int idBusca = input.nextInt();
 
-        Produto buscaID = listaProdutos.stream().filter(idPdt ->idPdt.getId() == idBusca).findAny().get();
-
-        System.out.println("Informe o preço encontrado na internet.");
-        BigDecimal precoInternet = input.nextBigDecimal();
-
-        System.out.println("Informe o preço encontrado na loja.");
-        BigDecimal precoLoja = input.nextBigDecimal();
-
-        System.out.println("Informe o preço encontrado por telefone.");
-        BigDecimal precoTelefone = input.nextBigDecimal();
+        try {
+            Produto buscaID = listaProdutos.stream().filter(idPdt ->idPdt.getId() == idBusca).findAny().get();
     
-        Cotacao cotacao = new Cotacao();
-        cotacao.setPrecoInternet(precoInternet);
-        cotacao.setPrecoLoja(precoLoja);
-        cotacao.setPrecoTelefone(precoTelefone);
+            System.out.println("Informe o preço encontrado na internet.");
+            BigDecimal precoInternet = input.nextBigDecimal();
+    
+            System.out.println("Informe o preço encontrado na loja.");
+            BigDecimal precoLoja = input.nextBigDecimal();
+    
+            System.out.println("Informe o preço encontrado por telefone.");
+            BigDecimal precoTelefone = input.nextBigDecimal();
         
-        buscaID.setCotacao(cotacao);
+            Cotacao cotacao = new Cotacao();
+            cotacao.setPrecoInternet(precoInternet);
+            cotacao.setPrecoLoja(precoLoja);
+            cotacao.setPrecoTelefone(precoTelefone);
+            
+            buscaID.setCotacao(cotacao);
+        } 
+        catch (NoSuchElementException exception) {
+            System.out.println("Entrada inválida.");
+        }
     }
 }

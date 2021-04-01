@@ -1,11 +1,14 @@
 package Produtos;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class Cotacao {
-    BigDecimal precoInternet;
-    BigDecimal precoLoja;
-    BigDecimal precoTelefone;
+    private BigDecimal precoInternet;
+    private BigDecimal precoLoja;
+    private BigDecimal precoTelefone;
+    
 
     public Cotacao(BigDecimal precoInternet, BigDecimal precoLoja, BigDecimal precoTelefone) {
         this.precoInternet = precoInternet;
@@ -42,8 +45,12 @@ public class Cotacao {
 
     @Override
     public String toString() {
-        return "[Preço encontrado na internet: R$" + precoInternet + ",00. \n Preço encontrado na loja: R$" + precoLoja + ",00. \n Preço encontrado por telefone: R$" + precoTelefone + ",00]";
+        return "[Data da cotação: " + LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm")) + 
+        "\nPreço encontrado na internet: R$" + precoInternet +
+        ". \nPreço encontrado na loja: R$" + precoLoja +
+        ". \nPreço encontrado por telefone: R$" + precoTelefone + "]";
     }
+
 
     
 }

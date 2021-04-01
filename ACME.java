@@ -1,5 +1,6 @@
 import java.util.ArrayList;
-
+import java.util.InputMismatchException;
+import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 import Produtos.Produto;
@@ -8,7 +9,7 @@ public class ACME {
 
     static ArrayList<Produto> listaProdutos = new ArrayList<>();
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
 
         Scanner input = new Scanner(System.in);
 
@@ -65,12 +66,22 @@ public class ACME {
             else if (opcao == 2) {
                 System.out.println("--- ALTERAÇÃO DE PRODUTO ---");
 
-                Menu.menuAlteraProduto(input, listaProdutos);
+                try {
+                    Menu.menuAlteraProduto(input, listaProdutos);
+                } 
+                catch (Exception e) {
+                    e.getMessage();
+                }
             }
             else if (opcao == 3) {
                 System.out.println("--- EXCLUSÃO DE PRODUTO ---");
 
-                Menu.menuRemoveProduto(input, listaProdutos);
+                try {
+                    Menu.menuRemoveProduto(input, listaProdutos);
+                } 
+                catch (Exception e) {
+                    e.getMessage();
+                }
             }
             else if (opcao == 4) {
                 System.out.println("--- CADASTRO DE COTAÇÃO ---");
@@ -95,7 +106,7 @@ public class ACME {
     }
 }
 
-    public static void consultarProduto(Scanner input, ArrayList<Produto> listaProdutos) {
+    public static void consultarProduto(Scanner input, ArrayList<Produto> listaProdutos) throws InputMismatchException {
         System.out.println("Deseja pesquisar por:");
         System.out.println("1 - Nome do Produto");
         System.out.println("2 - ID do Produto");
@@ -105,16 +116,29 @@ public class ACME {
         if (escolha == 1) {
             System.out.println("Informe o nome do produto: ");
 
-            String nomeBusca = input.nextLine();
+            String nomeBusca = input.next();
 
-            System.out.println(porNome(nomeBusca));
+            if (porNome(nomeBusca).isEmpty()) {
+                System.out.println("Não foi encontrado produto com este nome.");
+            }
+            else {
+                System.out.println(porNome(nomeBusca));
+            }
+
+            
         }
         else if (escolha == 2) {
             System.out.println("Informe o ID do produto: ");
 
             int idBusca = input.nextInt();
 
-            System.out.println(porID(idBusca));
+                try {
+                    System.out.println(porID(idBusca));
+                } 
+                
+                catch (NoSuchElementException exception) {
+                    System.out.println("Não existe produto com este ID.");
+                }
         }
 
     }
@@ -124,13 +148,9 @@ public class ACME {
         
         String nomeBusca = nome;
 
-        Produto buscaNome = new Produto();
-
         ArrayList<Produto> listaBuscaNome = new ArrayList<>();
 
-        buscaNome = listaProdutos.stream().filter(nomePdt ->nomePdt.getNome() == nomeBusca).findAny().get();
-
-        listaBuscaNome.add(buscaNome);
+        listaProdutos.stream().filter(nomePdt -> nomePdt.getNome().equals(nomeBusca)).forEachOrdered(listaBuscaNome::add);
 
         return listaBuscaNome;
     }
