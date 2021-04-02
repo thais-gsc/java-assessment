@@ -45,10 +45,10 @@ public class Cotacao {
 
     @Override
     public String toString() {
-        return "[Data da cotação: " + LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm")) + 
+        return "Data da cotação: " + LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm\n")) + 
         "\nPreço encontrado na internet: R$" + precoInternet +
         ". \nPreço encontrado na loja: R$" + precoLoja +
-        ". \nPreço encontrado por telefone: R$" + precoTelefone + "]";
+        ". \nPreço encontrado por telefone: R$" + precoTelefone;
     }
 
 

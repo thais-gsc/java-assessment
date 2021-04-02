@@ -60,7 +60,7 @@ public class Menu {
 
         listaProdutos.add(produto);
 
-        System.out.println("Produto cadastrado com sucesso\n");
+        System.out.println("Produto cadastrado com sucesso.\n");
     }
 
     // OPÇÃO 2 --- ALTERAÇÃO DE PRODUTO ---
