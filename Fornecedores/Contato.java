@@ -26,5 +26,10 @@ public class Contato {
         this.email = email;
     }
 
+    @Override
+    public String toString() {
+        return "\nE-mail:" + email + "\nTelefone: " + telefone;
+    }
+
     
 }
